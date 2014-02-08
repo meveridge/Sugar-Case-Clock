@@ -19,4 +19,6 @@ echo "<pre>".print_r($audit_list, true)."</pre>";
 
 //Patricks code here:
 
+//Save time results to the bean
+
 ?>
