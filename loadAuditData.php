@@ -4,16 +4,33 @@ require_once('include/modules.php');
 require_once('modules/Audit/Audit.php');
 require_once('custom/modules/Cases/scc-functions.php');
 
+//CONFIG INFO 1
+//Note: 06 = 6am, 18 = 6pm
+$daybegins = '06';
+$dayends = '18';
+if ($dayends > $daybegins) {
+    $daylength = $dayends - $daybegins;
+}else {
+    $daylength = ($dayends+24) - $daybegins;
+}
+
+//Note: 1 = Monday, 7 = Sunday
+$weekbegins = '1';
+$weekends = '6';
+
+
 global $focus;
 
 //Pull list of cases to crunch here:
 $bean_list = BeanFactory::getBean('Cases');
-$case_list = $bean_list->get_full_list("", "cases.date_modified > ".db_convert("'".gmdate($GLOBALS['timedate']->get_db_date_time_format(), strtotime("- 30 days"))."'" ,"datetime"));
+$case_list = $bean_list->get_full_list("", "cases.date_modified > ".db_convert("'".gmdate($GLOBALS['timedate']->get_db_date_time_format(), strtotime("- 30 days"))."'" ,"datetime"),true);
 
 foreach($case_list as $key => $focus){
 
 //Get single Case's Audit:
 //$focus = BeanFactory::getBean("Cases", "62859f2e-7bc1-6aff-fefc-52f6f541138b");
+
+//echo "<pre>".print_r($focus, true)."</pre>";
 
     $audit_list =  Audit::get_audit_list();
     $status_audit = array();
@@ -24,6 +41,15 @@ foreach($case_list as $key => $focus){
     }
 
     //Patricks code here:
+
+//CONFIG INFO 2
+$prev_date = null;
+
+//durations belonging to users and clients
+$int_dur = 0;
+$ext_dur = 0;
+$total_dur = 0;
+
     $CaseCreated = $focus->getFieldValue('date_entered');
 
     foreach($status_audit as $key => $value) {
@@ -39,6 +65,8 @@ foreach($case_list as $key => $focus){
                     //BEGIN DAYS BETWEEN 1
                     $start = new DateTime($CaseCreated);
                     $end = new DateTime($value['date_created']);
+
+                    //echo "1st - Start: $CaseCreated, End: {$value['date_created']} <br />";
 
                     //'days between' function
                     $days = DaysBetween($daylength, $weekbegins, $weekends, $start, $end);
@@ -71,6 +99,8 @@ foreach($case_list as $key => $focus){
                     $start = new DateTime($prev_date);
                     $end = new DateTime($value['date_created']);
 
+                    //echo "Start: $prev_date, End: {$value['date_created']} <br />";
+
                     //'days between' function
                     $days = DaysBetween($daylength, $weekbegins, $weekends, $start, $end);
 
@@ -94,7 +124,6 @@ foreach($case_list as $key => $focus){
                 }
         }
     }
-}
 
 //Divides durations from total to product a percentage //
 if ($total_dur != 0) 
@@ -106,8 +135,9 @@ if ($total_dur != 0)
         $ext_percent = 0;
     }
 
-echo "<pre>".print_r($int_dur, true)." >> ".print_r($ext_dur, true)."</pre>";
-echo "<pre>".print_r($int_percent, true)." >> ".print_r($ext_percent, true)."</pre>";
+echo "Int D: $int_dur || Ext D: $ext_dur <br />";
+echo "Int %: $int_percent || Ext %: $ext_percent <br />";
+
 
 //Save time results to the bean
 $focus->scc_int_duration_c = $int_dur;
@@ -115,5 +145,7 @@ $focus->scc_ext_duration_c = $ext_dur;
 $focus->scc_int_percent_c = $int_percent;
 $focus->scc_ext_percent_c = $ext_percent;
 $focus->save();
+
+}
 
 ?>

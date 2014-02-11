@@ -1,29 +1,5 @@
 <?php
 
-//CONFIG INFO
-
-//Note: 06 = 6am, 18 = 6pm
-$daybegins = '06';
-$dayends = '18';
-if ($dayends > $daybegins) {
-    $daylength = $dayends - $daybegins;
-}else {
-    $daylength = ($dayends+24) - $daybegins;
-}
-
-//Note: 1 = Monday, 7 = Sunday
-$weekbegins = '1';
-$weekends = '6';
-
-$prev_date = null;
-
-//durations belonging to users and clients
-$int_dur = 0;
-$ext_dur = 0;
-$total_dur = 0;
-
-//FUNCTIONS
-
 //Excludes weekends and calculates the days between two dates
 function DaysBetween($daylength, $weekbegins, $weekends, $start, $end) {
 
