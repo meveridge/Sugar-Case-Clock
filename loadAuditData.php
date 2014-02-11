@@ -16,11 +16,17 @@ foreach($case_list as $key => $focus){
 //$focus = BeanFactory::getBean("Cases", "62859f2e-7bc1-6aff-fefc-52f6f541138b");
 
     $audit_list =  Audit::get_audit_list();
+    $status_audit = array();
+    foreach(array_reverse($audit_list) as $key => $value) {
+        if($value['field_name'] == 'Status:') {
+            array_push($status_audit, $value);
+        }
+    }
 
     //Patricks code here:
     $CaseCreated = $focus->getFieldValue('date_entered');
 
-    foreach(array_reverse($audit_list) as $key => $value) {
+    foreach($status_audit as $key => $value) {
 
         if($value['field_name'] == 'Status:') {
 
