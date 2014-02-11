@@ -44,13 +44,20 @@
 			//Get single Case's Audit:
 
 			$focus = $bean;
+			$status_audit = array();
 
 			$audit_list =  Audit::get_audit_list();
+
+			foreach(array_reverse($audit_list) as $key => $value) {
+				if($value['field_name'] == 'Status:') {
+					array_push($status_audit, $value);
+				}
+			}
 
 			//Patricks code here:
 			$CaseCreated = $bean->getFieldValue('date_entered');
 
-			foreach(array_reverse($audit_list) as $key => $value) {
+			foreach($status_audit as $key => $value) {
 
 				if($value['field_name'] == 'Status:') {
 
@@ -59,6 +66,7 @@
 			                //begin Diff New to First Status Change
 			                $datetime1 = strtotime($CaseCreated);
 			                $datetime2 = strtotime($value['date_created']);
+			                $dur1 = round(($datetime2-$datetime1)/60/60,5);
 
 			                //BEGIN DAYS BETWEEN 1
 			                $start = new DateTime($CaseCreated);
