@@ -99,15 +99,15 @@ foreach($case_list as $key => $focus){
 //Divides durations from total to product a percentage //
 if ($total_dur != 0) 
     {
-        $ud_percent = round(($int_dur/$total_dur)*100,1);
-        $cd_percent = round(($ext_dur/$total_dur)*100,1);
+        $int_percent = round(($int_dur/$total_dur)*100,1);
+        $ext_percent = round(($ext_dur/$total_dur)*100,1);
     } else {
-        $ud_percent = 0;
-        $cd_percent = 0;
+        $int_percent = 0;
+        $ext_percent = 0;
     }
 
 echo "<pre>".print_r($int_dur, true)." >> ".print_r($ext_dur, true)."</pre>";
-echo "<pre>".print_r($ud_percent, true)." >> ".print_r($cd_percent, true)."</pre>";
+echo "<pre>".print_r($int_percent, true)." >> ".print_r($ext_percent, true)."</pre>";
 
 //Save time results to the bean
 $focus->scc_int_duration_c = $int_dur;
