@@ -22,9 +22,9 @@ class sugarCaseClock{
 		//require_once('custom/modules/Cases/scc-functions.php');
 		
 		if ($this->dayEnds > $this->dayBegins) {
-		    $this->daylength = $this->dayEnds - $this->dayBegins;
+		    $this->dayLength = $this->dayEnds - $this->dayBegins;
 		}else {
-		    $this->daylength = ($this->dayEnds+24) - $this->dayBegins;
+		    $this->dayLength = ($this->dayEnds+24) - $this->dayBegins;
 		}
 
 	}
@@ -134,14 +134,8 @@ $days = array();
 $data = $daylength;
 //$data = '12';
 
-/* Iterate from $start up to $end+1 day, one day in each iteration.
-   We add one day to the $end date, because the DatePeriod only iterates up to,
-   not including, the end date. */
-$modstart = $start->format('Y-m-d H:i:s');
-$modstart = strtotime($modstart);
-$modstart = strtotime("+1 day", $modstart);
-$modstart = date("Y-m-d", $modstart);
-if ($start->format('Y-m-d') == $end->format('Y-m-d') || $modstart == $end->format('Y-m-d')) {
+// Creates an array for each day considered, excluding weekends
+if ($start->format('Y-m-d') == $end->format('Y-m-d')) {
     foreach(new DatePeriod($start, $oneday, $end) as $day) {
         $days = $this->AddDay($days, $day, $data, $weekbegins, $weekends);
     }
