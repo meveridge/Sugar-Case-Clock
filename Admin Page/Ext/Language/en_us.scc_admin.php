@@ -9,3 +9,6 @@
 
     $mod_strings['LBL_SCC_ADMIN_SECTION_HEADER'] = 'Sugar Case Clock';
     $mod_strings['LBL_SCC_ADMIN_SECTION_DESCRIPTION'] = 'Case Clock Settings';
+
+	$mod_strings['LBL_SCC_INTERNAL_STATUS'] = 'Internal';
+	$mod_strings['LBL_SCC_EXTERNAL_STATUS'] = 'External';
