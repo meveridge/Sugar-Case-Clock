@@ -26,8 +26,9 @@ echo"Process Audit Data (Date Created): $auditStartTime<br />";
 			if($value['field_name'] != 'Status:') continue;
 
 	    	//process audit data
-	    	echo"Process Audit Data (From: {$value['before_value_string']} to: {$value['after_value_string']}): {$value['date_created']}<br />";
+	    	//echo"Process Audit Data (From: {$value['before_value_string']} to: {$value['after_value_string']}): {$value['date_created']}<br />";
 	    	$results = $sugar_case_clock->processAuditData($auditStartTime,$key,$value,$results);
+	    	echo"Process Audit Data (From: {$value['before_value_string']} to: {$value['after_value_string']}): $auditStartTime<br />";
 	    }
 echo"Total Dur: {$results['total_dur']}<br />";
 		//Divides durations from total to product a percentage //
