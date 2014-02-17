@@ -148,11 +148,11 @@ function DaysBetween($dayLength, $weekBegins, $weekEnds, $start, $end) {
 function AddDay($days, $day, $weekBegins, $weekEnds) {
     $day_num = $day->format("N"); /* 'N' number days 1 (mon) to 7 (sun) */
     if ($weekEnds < $weekBegins) {
-        if($day_num > $weekEnds && $day_num < $weekBegins) { /* weekday */
+        if($day_num < $weekEnds && $day_num > $weekBegins) { /* weekday */
             $days ++;
         }
     } else {
-        if($day_num < $weekEnds || $day_num > $weekBegins) { /* weekday */
+        if($day_num > $weekEnds || $day_num < $weekBegins) { /* weekday */
             $days ++;
         }
     }
@@ -194,7 +194,7 @@ function DiffHours($dayBegins , $dayEnds , $dayLength , $start, $end, $days) {
 
 	//Calculates Days Between
 	if ($endDay != $startDay) {
-		$dayMiddle = (($endDay - $startDay) - $days) * $dayLength;
+		$dayMiddle = (((($endDayStr - $startDayStr)/60/60/24) - 1) - $days) * $dayLength;
 	} else {
 		$dayMiddle = 0;
 	}
