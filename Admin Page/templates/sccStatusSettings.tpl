@@ -14,7 +14,7 @@
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 <tr><td colspan='100'><h2>{$title}</h2></td></tr>
-<tr><td colspan='100'>{$MOD.LBL_CONFIG_TABS_DESC}</td></tr>
+<tr><td colspan='100'>{$MOD.LB_SCC_STATUS_SETTINGS_LINK_DESCRIPTION}</td></tr>
 <tr><td><br></td></tr>
 <tr><td colspan='100'>
 	<table border="0" cellspacing="1" cellpadding="1" class="actionsContainer">

@@ -5,8 +5,6 @@
 if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 require_once('modules/Administration/Forms.php');
-require_once('include/SubPanel/SubPanelDefinitions.php');
-//require_once('modules/MySettings/TabController.php');
 
 if($_POST){
 
